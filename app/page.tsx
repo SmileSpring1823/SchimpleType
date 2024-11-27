@@ -105,7 +105,6 @@ export default function Home() {
    } else if (key === 'space') {
      inputValueRef.current = inputValueRef.current + " ";
      //setInputValue(inputValue + '_');
-//useless
 
      inputLength.current = inputValueRef.current.length;
 
