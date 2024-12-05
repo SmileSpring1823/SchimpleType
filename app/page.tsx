@@ -93,6 +93,8 @@ export default function Home() {
 
 
  const handleKeyClick = (key: string) => {
+
+  fetch("http://127.0.0.1:5001/click");
   
    setActiveKey(key);
    setTimeout(() => setActiveKey(null), 200);
