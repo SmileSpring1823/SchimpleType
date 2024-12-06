@@ -85,8 +85,6 @@ export default function Home() {
       const timer = setTimeout(() => {
         handleKeyClick(hoveredKey);
       }, cutoffTime);
-
-
       return () => clearTimeout(timer);
    }
  }, [hoveredKey, hoverStart, cutoffTime]);
@@ -513,7 +511,7 @@ const clearInput = () => {
 
             /* When the space key has the "bruh" class */
       .key.space.active {
-          background-color: #32CD32;
+          //background-color: #32CD32;
 
       }
 
@@ -537,8 +535,8 @@ const clearInput = () => {
 
       /* Active key highlight effect */
       .key.active {
-      color: #32CD32;
-       transform: scale(1.3); /* Slightly enlarge key */
+      //color: #32CD32;
+       //transform: scale(1.3); /* Slightly enlarge key */
        //  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4); /* Glow effect */
       }
 
@@ -552,7 +550,7 @@ const clearInput = () => {
 
 
        .key.bruh {
-          font-weight: 900; /* Very bold font */
+          //font-weight: 900; /* Very bold font */
        }
 
 
