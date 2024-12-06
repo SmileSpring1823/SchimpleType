@@ -18,6 +18,7 @@ export default function Home() {
  const inputLength = useRef(0);
  const inputValueRef = useRef('');
  const [isGPTEnabled, setIsGPTEnabled] = useState(false); // State to toggle GPT
+ const [isVisibilityEnabled, setVisibilityEnabled] = useState(false); // State to toggle Visual feedback
 
 
 
@@ -155,7 +156,7 @@ const clearInput = () => {
 
  const handleMouseEnter = (key: string) => {
    setHoverStart(Date.now());
-   setHoveredKey(key);
+  setHoveredKey(key);
  };
 
 
@@ -207,7 +208,7 @@ const clearInput = () => {
            {row.map((key) => (
              <button
                key={key}
-               className={`key ${key} ${activeKey === key ? 'active' : ''} ${hoveredKey === key ? 'bruh' : ''}`}
+               className={`key ${key} ${activeKey === key && isVisibilityEnabled ? 'active' : ''} ${hoveredKey === key  && isVisibilityEnabled ? 'bruh' : ''}`}
                onMouseEnter={() => handleMouseEnter(key)}
                onMouseLeave={() => handleMouseLeave(key)}
                onClick={() => handleKeyClick(key)} // Trigger click immediately
@@ -263,7 +264,14 @@ const clearInput = () => {
   onClick={() => setIsGPTEnabled((prev) => !prev)}
   className={`gpt-button ${isGPTEnabled ? 'enabled' : ''}`}
 >
-  GPT {isGPTEnabled ? 'On' : 'Off'}
+  GPTis {isGPTEnabled ? 'On' : 'Off'}
+</button>
+
+<button
+  onClick={() => setVisibilityEnabled((prev) => !prev)}
+  className={`visibility-button ${isVisibilityEnabled ? 'enabled' : ''}`}
+>
+  Visibility is {isVisibilityEnabled ? 'On' : 'Off'}
 </button>
 
 
@@ -511,7 +519,7 @@ const clearInput = () => {
 
             /* When the space key has the "bruh" class */
       .key.space.active {
-          //background-color: #32CD32;
+          background-color: #32CD32;
 
       }
 
@@ -535,8 +543,8 @@ const clearInput = () => {
 
       /* Active key highlight effect */
       .key.active {
-      //color: #32CD32;
-       //transform: scale(1.3); /* Slightly enlarge key */
+      color: #32CD32;
+       transform: scale(1.3); /* Slightly enlarge key */
        //  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4); /* Glow effect */
       }
 
@@ -550,7 +558,7 @@ const clearInput = () => {
 
 
        .key.bruh {
-          //font-weight: 900; /* Very bold font */
+          font-weight: 900; /* Very bold font */
        }
 
 
@@ -573,6 +581,28 @@ const clearInput = () => {
   }
 
   .gpt-button.enabled {
+    background-color: #28a745; /* Darker green for enabled state */
+  }
+
+    .visibility-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    color: white;
+    background-color: #32CD32; /* Green color */
+    border: none;
+    border-radius: 20px; /* Make the button rounded */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .visibility-button:hover {
+    background-color: #28a745; /* Darker green on hover */
+    transform: scale(1.05); /* Slight enlargement on hover */
+  }
+
+  .visibility-button.enabled {
     background-color: #28a745; /* Darker green for enabled state */
   }
 
