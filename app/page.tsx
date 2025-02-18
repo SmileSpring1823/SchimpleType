@@ -20,16 +20,36 @@ export default function Home() {
  const [isGPTEnabled, setIsGPTEnabled] = useState(false); // State to toggle GPT
  const [isVisibilityEnabled, setVisibilityEnabled] = useState(true); // State to toggle Visual feedback
 
- const letterSize = useRef('40px'); // Example size, you can set this dynamically
+ const [t9Switch, setT9Switch] = useState(false);
+ const [t9qwerty, sett9qwerty] = useState(false);
+
+let keys = [];
+if (t9Switch && !t9qwerty) {
+  keys = [
+    ['ABCDEF', 'GHIJK', 'LMNOP'],
+    ['QRSTU', "     ", 'VWXYZ'],
+    [" ", "  ", "        "],
+    ['backspace', 'space', 'del-word'],
+   ]
+} else if (t9qwerty) {
+  keys = [
+    ['QWER', 'TGY', 'UIOP'],
+    ['ASDF', "     ", 'HJKL'],
+    ["ZXCV", "  ", "BNM"],
+    ['backspace', 'space', 'del-word'],
+  ]
+}
+else {
+  keys = [
+    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
+    ['z', 'x', 'c', 'v', 'b', 'n', 'm'],
+    ['backspace', 'space', 'del-word'],
+  ];
+}
 
 
 
- const keys = [
-   ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-   ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-   ['z', 'x', 'c', 'v', 'b', 'n', 'm'],
-   ['backspace', 'space', 'del-word'],
- ];
 
 
  // Autocorrect function to find the closest word
@@ -202,9 +222,10 @@ const clearInput = () => {
        ></textarea>
      </div>
 
-     <div className="keyboard">
+     <div className={`keyboard ${t9Switch ? 't9-layout' : ''}`}>
        {keys.map((row, rowIndex) => (
-         <div key={rowIndex} className={`keyboard-row row-${rowIndex}`}>
+         <div key={rowIndex}             className={t9Switch ? `t9-row-${rowIndex}` : `keyboard-row row-${rowIndex}`}
+>
            {row.map((key) => (
              <button
                key={key}
@@ -262,17 +283,17 @@ const clearInput = () => {
 
 
 <button
-  onClick={() => setIsGPTEnabled((prev) => !prev)}
-  className={`gpt-button ${isGPTEnabled ? 'enabled' : ''}`}
->
-  GPTis {isGPTEnabled ? 'On' : 'Off'}
-</button>
+      onClick={() => setT9Switch((prev) => !prev)}
+      className={`gpt-button ${t9Switch ? 'enabled' : ''}`}
+    >
+      t9 {t9Switch ? 'On' : 'Off'}
+    </button>
 
 <button
-  onClick={() => setVisibilityEnabled((prev) => !prev)}
+  onClick={() => sett9qwerty((prev) => !prev)}
   className={`visibility-button ${isVisibilityEnabled ? 'enabled' : ''}`}
 >
-  Visibility is {isVisibilityEnabled ? 'On' : 'Off'}
+  qwerty is {isVisibilityEnabled ? 'On' : 'Off'}
 </button>
 
 
@@ -413,6 +434,13 @@ const clearInput = () => {
         backdrop-filter: blur(15px);        
       }
 
+      .t9-layout {
+          display: grid;
+          gap: 10px;
+          justify-items: center;
+          align-items: center;
+        }
+
 
 
      body {
@@ -423,8 +451,39 @@ const clearInput = () => {
        display: grid;
        gap: 18px;
        justify-content: center;
-         margin-bottom: 18px; /* Add spacing between rows */
+        margin-bottom: 18px; /* Add spacing between rows */
 
+     }
+
+     .t9-row-0 {
+        display: grid;
+       gap: 18px;
+       justify-content: center;
+        margin-bottom: 18px; /* Add spacing between rows */
+        grid-template-columns: repeat(3, 1fr);
+     }
+
+      .t9-row-1 {
+        display: grid;
+       gap: 18px;
+       justify-content: center;
+        margin-bottom: 18px; /* Add spacing between rows */
+        grid-template-columns: repeat(3, 1fr);
+     }
+             .t9-row-2 {
+        display: grid;
+       gap: 18px;
+       justify-content: center;
+        margin-bottom: 18px; /* Add spacing between rows */
+        grid-template-columns: repeat(3, 1fr);
+     }
+
+      .t9-row-3 {
+        display: grid;
+       gap: 18px;
+       justify-content: center;
+        margin-bottom: 18px; /* Add spacing between rows */
+        grid-template-columns: repeat(3, 1fr);
      }
 
 
