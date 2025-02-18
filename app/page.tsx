@@ -12,21 +12,23 @@ export default function Home() {
  const [hoveredKey, setHoveredKey] = useState<string | null>(null); // Track the key being hovered
  const [activeKey, setActiveKey] = useState<string | null>(null); // Track the active key for highlight
  const [deleteInterval, setDeleteInterval] = useState<NodeJS.Timeout | null>(null); // Track the interval for holding delete
- const [cutoffTime, setCutoffTime] = useState(1000); // Key click cutoff time
+ const [cutoffTime, setCutoffTime] = useState(100000); // Key click cutoff time
  const [history, setHistory] = useState<string>('');;
  const [curr, setCurr] = useState<string>('');
  const inputLength = useRef(0);
  const inputValueRef = useRef('');
  const [isGPTEnabled, setIsGPTEnabled] = useState(false); // State to toggle GPT
- const [isVisibilityEnabled, setVisibilityEnabled] = useState(false); // State to toggle Visual feedback
+ const [isVisibilityEnabled, setVisibilityEnabled] = useState(true); // State to toggle Visual feedback
+
+ const letterSize = useRef('40px'); // Example size, you can set this dynamically
 
 
 
  const keys = [
    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-   ['z', 'x', 'c', 'v', 'b', 'n', 'm', 'backspace'],
-   ['clear', 'space', 'del-word'],
+   ['z', 'x', 'c', 'v', 'b', 'n', 'm'],
+   ['backspace', 'space', 'del-word'],
  ];
 
 
@@ -92,8 +94,6 @@ export default function Home() {
 
 
  const handleKeyClick = (key: string) => {
-
-  fetch("http://127.0.0.1:5001/click");
   
    setActiveKey(key);
    setTimeout(() => setActiveKey(null), 200);
@@ -214,6 +214,7 @@ const clearInput = () => {
                onClick={() => handleKeyClick(key)} // Trigger click immediately
                style={{
                  transition: hoveredKey !== key ? 'background 0.4s' : 'none',
+
                }}
              >
                {key === 'space'
@@ -405,22 +406,13 @@ const clearInput = () => {
       .keyboard {
         display: flex;
         flex-direction: column;
-        gap: 10px;
-        width: 100%;
-        padding: 20px;
-        background-color: rgba(40, 40, 40, 0.8);
+        gap: 0px;
+        width: 70%;
+        padding: 0px;
         border-radius: 12px;
-        backdrop-filter: blur(15px);
-        
+        backdrop-filter: blur(15px);        
       }
 
-
-
-
-     :root {
-       --key-size: 50px; /* Adjust this value to make keys bigger */
-       --font-size: 16px; /* Base font size for the key text */
-     }
 
 
      body {
@@ -429,9 +421,9 @@ const clearInput = () => {
     
      .keyboard-row {
        display: grid;
-       gap: 27px;
+       gap: 18px;
        justify-content: center;
-         margin-bottom: 27px; /* Add spacing between rows */
+         margin-bottom: 18px; /* Add spacing between rows */
 
      }
 
@@ -469,12 +461,11 @@ const clearInput = () => {
        /* Key button styling */
        .key {
          padding: 20px 0; /* Increased padding for larger text */
-         font-size: 4.2em; /* Increased font size */
+         font-size: 1.8em; /* Increased font size */
          //font-weight: bold; /* Bold font */
          color: white;
          background-color: light-gray;
-         border: 0px solid rgba(255, 255, 255, 0.2);
-         border-radius: 0px;
+         border-radius: 2px;
          cursor: pointer;
          // transition: background 0.1s, transform 0.3s;
          text-transform: capitalize;
@@ -482,30 +473,33 @@ const clearInput = () => {
          align-items: center;
          justify-content: center;
          //backdrop-filter: blur(5px);
-         height: 150px;
+         height: 127px;
+         width: 127px;
          // transition-delay: 0.35s;
-        //border: 2px solid white; /* Add white border around each key */
+      //border: 2px solid white; /* Add white border around each key */
      }
 
 
       .key.space {
-        grid-column: span 5;
-          grid-column: 2 / 3; /* Ensure the space bar occupies the center column */
-
-        height: 120px;
+        height: 170px;
+        width: 800px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
         border: 2px solid rgba(0, 0, 0, 0.3); /* Shadow outline around the whole key */
         transition: background-color 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions */
 
+
       }
 
       .key.del-word {
-        font-size: 2.7em;
-
+        grid-column: span 1.5;
+        font-size: 3.8em; /* Increased font size */
+        background-color: rgba(255, 0, 0, 0.4); /* Alarm red with 0.4 opacity */
+        height: 180px;
+        width: 180px;
       }
 
       .key.clear {
-        font-size: 2.7em;
+
 
       }
 
@@ -523,13 +517,14 @@ const clearInput = () => {
 
       }
 
-      .key.backspace {
-        grid-column: span 1.5;
-      }
-
 
       .key.backspace {
         grid-column: span 1.5;
+        font-size: 3.8em; /* Increased font size */
+    background-color: rgba(255, 0, 0, 0.4); /* Alarm red with 0.4 opacity */
+        height: 180px;
+        width: 180px;
+        
       }
 
        .key.tab,
@@ -558,7 +553,7 @@ const clearInput = () => {
 
 
        .key.bruh {
-          font-weight: 900; /* Very bold font */
+          //font-weight: 900; /* Very bold font */
        }
 
 
@@ -611,7 +606,7 @@ const clearInput = () => {
     bottom: 60px; /* Distance from the bottom */
     left: 30px; /* Distance from the right */
     padding: 20px 40px; /* Adjust padding for size */
-    font-size: 1.4em; /* Adjust font size */
+    font-size: 3.4em; /* Adjust font size */
     font-weight: bold;
     color: white;
     background-color: #f04a4a; /* Bright red color */
