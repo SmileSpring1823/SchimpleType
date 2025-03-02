@@ -22,6 +22,7 @@ export default function Home() {
 
  const [t9Switch, setT9Switch] = useState(false);
  const [t9qwerty, sett9qwerty] = useState(false);
+ const [opti2, setopti2] = useState(true);
 
 let keys = [];
 if (t9Switch && !t9qwerty) {
@@ -37,6 +38,14 @@ if (t9Switch && !t9qwerty) {
     ['ASDF', "     ", 'HJKL'],
     ["ZXCV", "  ", "BNM"],
     ['backspace', 'space', 'del-word'],
+  ]
+} else if (opti2) {
+  keys = [
+    ['q', 'k', 'c', 'g', 'v', 'j'],
+    ['backspace', 's', 'i', 'n', 'd', 'space'],
+    ['w', 't', 'h', 'e', 'a', 'm'],
+    ['space', 'u', 'o', 'r', 'l', 'backspace'],
+    ['z', 'b', 'f', 'y', 'p', 'x'],
   ]
 }
 else {
@@ -224,7 +233,13 @@ const clearInput = () => {
 
      <div className={`keyboard ${t9Switch ? 't9-layout' : ''}`}>
        {keys.map((row, rowIndex) => (
-         <div key={rowIndex}             className={t9Switch ? `t9-row-${rowIndex}` : `keyboard-row row-${rowIndex}`}
+         <div key={rowIndex}             className={
+          opti2 === true 
+            ? `opti2-row-${rowIndex}` 
+            : t9Switch 
+              ? `t9-row-${rowIndex}` 
+              : `keyboard-row row-${rowIndex}`
+        }
 >
            {row.map((key) => (
              <button
@@ -239,7 +254,7 @@ const clearInput = () => {
                }}
              >
                {key === 'space'
-                 ? ''
+                 ? '␣'
                  : key === 'lshift'
                  ? '⇧ shift'
                  : key === 'rshift'
@@ -455,7 +470,48 @@ const clearInput = () => {
 
      }
 
-     .t9-row-0 {
+
+     .opti2-row-0 {
+        display: grid;
+        gap: 18px;
+        justify-content: center;
+        margin-bottom: 18px; /* Add spacing between rows */
+        grid-template-columns: repeat(6, 1fr);
+     }
+
+     .opti2-row-1 {
+        display: grid;
+        gap: 18px;
+        justify-content: center;
+        margin-bottom: 18px; /* Add spacing between rows */
+        grid-template-columns: repeat(6, 1fr);
+     }
+
+     .opti2-row-2 {
+        display: grid;
+        gap: 18px;
+        justify-content: center;
+        margin-bottom: 18px; /* Add spacing between rows */
+        grid-template-columns: repeat(6, 1fr);
+     }
+
+     .opti2-row-3 {
+        display: grid;
+        gap: 18px;
+        justify-content: center;
+        margin-bottom: 18px; /* Add spacing between rows */
+        grid-template-columns: repeat(6, 1fr);
+     }
+
+     .opti2-row-4 {
+        display: grid;
+        gap: 18px;
+        justify-content: center;
+        margin-bottom: 18px; /* Add spacing between rows */
+        grid-template-columns: repeat(6, 1fr);
+     }
+
+     .t9-row-5 {
         display: grid;
        gap: 18px;
        justify-content: center;
@@ -495,16 +551,12 @@ const clearInput = () => {
      .row-1 {
        grid-template-columns: repeat(9, 1fr);
        padding: 0 calc((10% - 8px) / 2); /* Dynamically pad based on the gap */
-
-
      }
 
 
      .row-2 {
        grid-template-columns: repeat(8, 1fr);
        padding: 0 calc((20% - 8px) / 2);
-
-
      }
 
 
@@ -539,7 +591,7 @@ const clearInput = () => {
      }
 
 
-      .key.space {
+      .key.space.opti2-false {
         height: 170px;
         width: 800px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
@@ -577,7 +629,7 @@ const clearInput = () => {
       }
 
 
-      .key.backspace {
+      .key.backspace.opti2-false {
         grid-column: span 1.5;
         font-size: 3.8em; /* Increased font size */
     background-color: rgba(255, 0, 0, 0.4); /* Alarm red with 0.4 opacity */
