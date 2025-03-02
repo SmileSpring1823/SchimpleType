@@ -572,7 +572,7 @@ const clearInput = () => {
        /* Key button styling */
        .key {
          padding: 20px 0; /* Increased padding for larger text */
-         font-size: 1.8em; /* Increased font size */
+         font-size: 2.8em; /* Increased font size */
          //font-weight: bold; /* Bold font */
          color: white;
          background-color: light-gray;
